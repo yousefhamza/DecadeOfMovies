@@ -1,2 +1,69 @@
-# SWVL_mobile_challenge
-SWVL mobile challenge technical task interview
+# Swvl Mobile Challenge 
+
+## Milestones
+
+### Pre-v1
+
+This goal of this milestone to resolve high risk and fundamental components of the task 
+
+[Insert duration it took]
+
+- Prototype changing `predicate` on `NSFetchResultsController`, check [this tip](https://stackoverflow.com/questions/2482100/nsfetchedresultscontroller-changing-predicate-not-working)
+- Measure performance of searching in tests (should be < 100ms)
+
+[Add performance measurement on a given device]
+
+### v1
+
+The goal of this milestone is to implement all functionalities at a very basic level
+
+- Import movies on launch
+- Add search controller
+    - reload all data on search term change
+- Display data with names only in a UITableView with years sections
+- Display movie's  details
+    - Add 3 buttons to show the lists of genres and cast and photos
+- Add image loading/caching
+
+[Add GIF for the flow]
+
+### v1.1
+
+The goal of this milestone is to make search functionality which is the core of this app more polished
+
+- Move/Delete/Insert tableview cells on search term change
+
+[Add GIF for the flow]
+
+### v2
+
+The goal of this milestone is to add states to the different lists/collections in the app
+
+- Add an import/error state with in the movies list
+- Add an empty state for searching movies
+- Add empty/error state for genres and cast and images lists
+- Add loading state to image thumbnails
+
+[Add GIF for the flow]
+
+### Pre-v3
+
+The goal of this milestone is to optimize memory usage further and communicate progress to the user
+
+- Reading movies gradually using input streams using this [API](https://developer.apple.com/documentation/foundation/nsjsonserialization/1418059-jsonobjectwithstream)
+- Add progress for importing
+
+### v3
+
+The goal of this milestone is to polish the app by flattening the design, add more initiative interactions and using the space available to show more data
+
+- Make genres an inline collection view
+- Make case a collapsable list in the movies details page
+- Open images by tapping and switch between them with swipes and close by swiping them down
+
+[Add GIF to the flow]
+
+# Technical Considerations
+
+- Will use Core Data to handle caching, searching and sorting the data
+- KingFisher is used to cache images both in memory and on disk
