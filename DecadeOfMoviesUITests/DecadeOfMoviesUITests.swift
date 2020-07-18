@@ -52,4 +52,18 @@ class DecadeOfMoviesUITests: XCTestCase {
         searchBar.typeText("e") // Text is now Feee
         XCTAssertEqual(app.tables.staticTexts.count, 0) // Nothing matches Feee
     }
+
+    func testShowingMovieDetails() throws {
+        let app = XCUIApplication()
+        app.launch()
+        app.activate()
+
+        XCTAssert(app.navigationBars["Movies"].exists)
+
+        app.tables.staticTexts["(500) Days of Summer"].tap()
+
+        XCTAssert(app.staticTexts["(500) Days of Summer"].waitForExistence(timeout: 5))
+        XCTAssert(app.staticTexts["2009"].waitForExistence(timeout: 5))
+        XCTAssert(app.buttons["Show genres"].waitForExistence(timeout: 5))
+    }
 }

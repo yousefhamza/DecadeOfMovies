@@ -97,13 +97,20 @@ class MoviesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: kMoviesTableViewCellIdentifier, for: indexPath)
-        let obj = fetchResultsController.object(at: indexPath)
-        cell.textLabel?.text = obj.title
+        let movie = fetchResultsController.object(at: indexPath)
+        cell.textLabel?.text = movie.title
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return fetchResultsController.sections?[section].name
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let movie = fetchResultsController.object(at: indexPath)
+        let movieViewController = MovieViewController(movie: movie)
+        splitViewController?.showDetailViewController(movieViewController, sender: nil)
     }
 }
 
