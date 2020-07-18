@@ -47,7 +47,7 @@ enum EndPoint: URLRequestCreator {
     var url: URL {
         var fullPath = path
         if let query = self.query {
-            fullPath += "?\(query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? "")"
+            fullPath += "?\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
         }
         print("url: \(fullPath)")
         return URL(string: fullPath)!
