@@ -16,9 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.setupRootViewController()
-        window?.makeKeyAndVisible()
+
+        if #available(iOS 13.0, *) {
+            // Window will be loaded by the Scene Delegate.
+        } else {
+            window = UIWindow(frame: UIScreen.main.bounds)
+            window?.setupRootViewController()
+            window?.makeKeyAndVisible()
+        }
         return true
     }
 

@@ -8,7 +8,15 @@
 
 import UIKit
 
+protocol MovieViewDelegate: AnyObject {
+    func movieViewDidSelectGenres(_ moviesView: MovieView)
+    func movieViewDidSelectCast(_ moviesView: MovieView)
+    func moviesViewDidSelectImages(_ moviesView: MovieView)
+}
+
 class MovieView: UIView {
+    weak var delegate: MovieViewDelegate?
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title1)
@@ -76,6 +84,10 @@ class MovieView: UIView {
         buttonsStack.addArrangedSubview(imagesButton)
         addSubview(buttonsStack)
 
+        genresButton.addTarget(self, action: #selector(didTapGenres), for: .touchUpInside)
+        castButton.addTarget(self, action: #selector(didTapCast), for: .touchUpInside)
+        imagesButton.addTarget(self, action: #selector(didTapImages), for: .touchUpInside)
+
         setNeedsUpdateConstraints()
     }
 
@@ -111,5 +123,17 @@ class MovieView: UIView {
     func show(movie: MovieMO) {
         titleLabel.text = movie.title
         yearLabel.text = "\(movie.year)"
+    }
+
+    @objc private func didTapGenres() {
+        delegate?.movieViewDidSelectGenres(self)
+    }
+
+    @objc private func didTapCast() {
+        delegate?.movieViewDidSelectCast(self)
+    }
+
+    @objc private func didTapImages() {
+        delegate?.moviesViewDidSelectImages(self)
     }
 }

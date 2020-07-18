@@ -30,6 +30,23 @@ class MovieViewController: UIViewController {
         super.viewDidLoad()
         title = "Details"
 
+        movieView.delegate = self
         movieView.show(movie: movie)
+    }
+}
+
+extension MovieViewController: MovieViewDelegate {
+    func movieViewDidSelectGenres(_ moviesView: MovieView) {
+        navigationController?.pushViewController(TextsTableViewController(title: "Genres",
+                                                                          texts: movie.genres as [String]? ?? []), animated: true)
+    }
+
+    func movieViewDidSelectCast(_ moviesView: MovieView) {
+        navigationController?.pushViewController(TextsTableViewController(title: "Cast",
+                                                                          texts: movie.cast as [String]? ?? []), animated: true)
+    }
+
+    func moviesViewDidSelectImages(_ moviesView: MovieView) {
+        // TODO
     }
 }

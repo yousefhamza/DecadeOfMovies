@@ -19,6 +19,7 @@
 		2475E01A24C32544007137DC /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2475E01924C32544007137DC /* MovieViewController.swift */; };
 		2475E01C24C32550007137DC /* MovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2475E01B24C32550007137DC /* MovieView.swift */; };
 		2475E01F24C328CA007137DC /* LegacyLayoutGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2475E01E24C328CA007137DC /* LegacyLayoutGuide.swift */; };
+		2475E02124C32D0B007137DC /* TextsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2475E02024C32D0B007137DC /* TextsTableViewController.swift */; };
 		24984C3A24C2DEA40046B7A5 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24984C3924C2DEA40046B7A5 /* Movie.swift */; };
 		24984C3D24C2E6760046B7A5 /* MoviesStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24984C3C24C2E6760046B7A5 /* MoviesStoreTests.swift */; };
 		24984C4024C2EA7A0046B7A5 /* MoviesStore+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24984C3F24C2EA7A0046B7A5 /* MoviesStore+TestHelpers.swift */; };
@@ -61,6 +62,7 @@
 		2475E01924C32544007137DC /* MovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewController.swift; sourceTree = "<group>"; };
 		2475E01B24C32550007137DC /* MovieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieView.swift; sourceTree = "<group>"; };
 		2475E01E24C328CA007137DC /* LegacyLayoutGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyLayoutGuide.swift; sourceTree = "<group>"; };
+		2475E02024C32D0B007137DC /* TextsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextsTableViewController.swift; sourceTree = "<group>"; };
 		24984C3924C2DEA40046B7A5 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		24984C3B24C2E6760046B7A5 /* DecadeOfMoviesTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DecadeOfMoviesTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		24984C3C24C2E6760046B7A5 /* MoviesStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesStoreTests.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				24A43A5024C2DA5E00B26DEF /* MoviesTableViewController.swift */,
 				2419EDFB24C0EEC900BF0174 /* EmptyViewController.swift */,
 				2475E01924C32544007137DC /* MovieViewController.swift */,
+				2475E02024C32D0B007137DC /* TextsTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				2475E01F24C328CA007137DC /* LegacyLayoutGuide.swift in Sources */,
 				2419EE0224C0EEC900BF0174 /* DecadeOfMovies.xcdatamodeld in Sources */,
 				2475E01C24C32550007137DC /* MovieView.swift in Sources */,
+				2475E02124C32D0B007137DC /* TextsTableViewController.swift in Sources */,
 				24CE5B0724C2FA6600DFB59F /* MoviesStoreError.swift in Sources */,
 				2419EDF824C0EEC900BF0174 /* AppDelegate.swift in Sources */,
 				2419EDFA24C0EEC900BF0174 /* SceneDelegate.swift in Sources */,

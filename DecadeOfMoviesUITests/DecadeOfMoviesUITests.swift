@@ -62,8 +62,18 @@ class DecadeOfMoviesUITests: XCTestCase {
 
         app.tables.staticTexts["(500) Days of Summer"].tap()
 
+        XCTAssert(app.navigationBars["Details"].exists)
         XCTAssert(app.staticTexts["(500) Days of Summer"].waitForExistence(timeout: 5))
         XCTAssert(app.staticTexts["2009"].waitForExistence(timeout: 5))
-        XCTAssert(app.buttons["Show genres"].waitForExistence(timeout: 5))
+
+        app.buttons["Show genres"].tap()
+        XCTAssert(app.navigationBars["Genres"].exists)
+        XCTAssert(app.tables.staticTexts["Comedy"].exists)
+
+        app.navigationBars.buttons["Details"].tap()
+
+        app.buttons["Show cast"].tap()
+        XCTAssert(app.navigationBars["Cast"].exists)
+        XCTAssert(app.tables.staticTexts["Zooey Deschanel"].exists)
     }
 }
