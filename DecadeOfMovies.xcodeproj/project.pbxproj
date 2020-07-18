@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		2419EDF824C0EEC900BF0174 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2419EDF724C0EEC900BF0174 /* AppDelegate.swift */; };
 		2419EDFA24C0EEC900BF0174 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2419EDF924C0EEC900BF0174 /* SceneDelegate.swift */; };
-		2419EDFC24C0EEC900BF0174 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2419EDFB24C0EEC900BF0174 /* ViewController.swift */; };
+		2419EDFC24C0EEC900BF0174 /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2419EDFB24C0EEC900BF0174 /* EmptyViewController.swift */; };
 		2419EE0224C0EEC900BF0174 /* DecadeOfMovies.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2419EE0024C0EEC900BF0174 /* DecadeOfMovies.xcdatamodeld */; };
 		2419EE0424C0EECB00BF0174 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2419EE0324C0EECB00BF0174 /* Assets.xcassets */; };
 		2419EE0724C0EECB00BF0174 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2419EE0524C0EECB00BF0174 /* LaunchScreen.storyboard */; };
@@ -45,7 +45,7 @@
 		2419EDF424C0EEC900BF0174 /* DecadeOfMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DecadeOfMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2419EDF724C0EEC900BF0174 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2419EDF924C0EEC900BF0174 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2419EDFB24C0EEC900BF0174 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2419EDFB24C0EEC900BF0174 /* EmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyViewController.swift; sourceTree = "<group>"; };
 		2419EE0124C0EEC900BF0174 /* DecadeOfMovies.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DecadeOfMovies.xcdatamodel; sourceTree = "<group>"; };
 		2419EE0324C0EECB00BF0174 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2419EE0624C0EECB00BF0174 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -156,7 +156,7 @@
 			children = (
 				2419EE2E24C0F72B00BF0174 /* MasterDetailViewController.swift */,
 				24A43A5024C2DA5E00B26DEF /* MoviesTableViewController.swift */,
-				2419EDFB24C0EEC900BF0174 /* ViewController.swift */,
+				2419EDFB24C0EEC900BF0174 /* EmptyViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -336,7 +336,7 @@
 			files = (
 				24A43A5124C2DA5E00B26DEF /* MoviesTableViewController.swift in Sources */,
 				2475E01824C30E45007137DC /* UIViewController+Alerts.swift in Sources */,
-				2419EDFC24C0EEC900BF0174 /* ViewController.swift in Sources */,
+				2419EDFC24C0EEC900BF0174 /* EmptyViewController.swift in Sources */,
 				24984C3A24C2DEA40046B7A5 /* Movie.swift in Sources */,
 				2419EE2C24C0F1F100BF0174 /* UIWindow+Setup.swift in Sources */,
 				2419EE2F24C0F72B00BF0174 /* MasterDetailViewController.swift in Sources */,

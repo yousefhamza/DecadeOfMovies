@@ -12,7 +12,7 @@ class MasterDetailViewController: UISplitViewController {
     init() {
         super.init(nibName: nil, bundle: nil)
         let masterTableViewController = MoviesTableViewController()
-        let viewController = ViewController()
+        let viewController = EmptyViewController()
         viewControllers = [
             UINavigationController(rootViewController: masterTableViewController),
             UINavigationController(rootViewController: viewController)
@@ -37,6 +37,6 @@ extension MasterDetailViewController: UISplitViewControllerDelegate {
         guard let secondaryViewController = secondaryViewController as? UINavigationController else {
             return false
         }
-        return secondaryViewController.topViewController?.isKind(of: ViewController.classForCoder()) ?? false
+        return secondaryViewController.topViewController?.isKind(of: EmptyViewController.classForCoder()) ?? false
     }
 }
