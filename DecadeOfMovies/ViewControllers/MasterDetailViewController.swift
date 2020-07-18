@@ -11,7 +11,7 @@ import UIKit
 class MasterDetailViewController: UISplitViewController {
     init() {
         super.init(nibName: nil, bundle: nil)
-        let masterTableViewController = UITableViewController(style: .plain)
+        let masterTableViewController = MoviesTableViewController()
         let viewController = ViewController()
         viewControllers = [
             UINavigationController(rootViewController: masterTableViewController),
