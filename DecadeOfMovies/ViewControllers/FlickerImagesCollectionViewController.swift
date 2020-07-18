@@ -13,6 +13,7 @@ private let reuseIdentifier = "Cell"
 class FlickerImagesCollectionViewController: UICollectionViewController {
     let movieTitle: String
     let currentPage: Int = 1
+    var photos: [FlickerPhoto] = []
 
     init(movieTitle: String) {
         self.movieTitle = movieTitle
@@ -38,7 +39,7 @@ class FlickerImagesCollectionViewController: UICollectionViewController {
         }
 
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(FlickerCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         fetchImages()
     }
@@ -59,7 +60,6 @@ class FlickerImagesCollectionViewController: UICollectionViewController {
     private func updateItemSize() {
         let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
         let width = view.bounds.width
-        print("view width: \(width), nav width: \(navigationController?.view.bounds.width ?? 0)")
         let sectionInset = flowLayout?.sectionInset ?? .zero
         let realWidth = width - (flowLayout?.minimumInteritemSpacing ?? CGFloat(0)) - sectionInset.right - sectionInset.left
         let itemSizeLength = realWidth / 2
@@ -74,7 +74,13 @@ class FlickerImagesCollectionViewController: UICollectionViewController {
     func fetchImages() {
         Network.shared.executeRequest(at: .images(movieTitle: movieTitle, page: currentPage),
                                       successCallback: { (res: FlickerResponse) in
-                                        print("success: \(res.photos.count)")
+                                        self.photos += res.photos
+                                        self.collectionView.performBatchUpdates({
+                                            self.collectionView
+                                                .insertItems(at: (0..<res.pageSize)
+                                                    .map({IndexPath(item: $0 + self.photos.count - res.pageSize,
+                                                        section: 0)}))
+                                        }, completion: nil)
         },
                                       errorCallback: { (error) in
                                         print("error")
@@ -85,20 +91,21 @@ class FlickerImagesCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 5
+        return photos.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
-        cell.contentView.backgroundColor = .gray
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! FlickerCollectionViewCell
+
+        let photo = photos[indexPath.item]
+        cell.flickImageView.setImage(url: EndPoint.flickPhoto(photo: photo).url,
+                                     at: indexPath,
+                                     size: (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.itemSize)
     
         return cell
     }

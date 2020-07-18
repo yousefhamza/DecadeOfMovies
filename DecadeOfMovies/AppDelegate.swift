@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Kingfisher
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,6 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.setupRootViewController()
             window?.makeKeyAndVisible()
         }
+        ImageCache.default.diskStorage.config.sizeLimit = 50 * 1024 * 1024 // 50 MB disk image cache
+        ImageCache.default.memoryStorage.config.totalCostLimit = 10 * 1024 * 1024 // 10 MB memory  image cache
+        ImageCache.default.memoryStorage.config.countLimit = 10 * 1024 * 1024 // max 50 images
         return true
     }
 
