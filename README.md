@@ -6,12 +6,14 @@
 
 This goal of this milestone to resolve high risk and fundamental components of the task 
 
-[Insert duration it took]
-
 - Prototype changing `predicate` on `NSFetchResultsController`, check [this tip](https://stackoverflow.com/questions/2482100/nsfetchedresultscontroller-changing-predicate-not-working)
 - Measure performance of searching in tests (should be < 100ms)
 
-[Add performance measurement on a given device]
+#### Performance results
+Perforamnce was measured using unit tests (runs on simulator only) on MBP 13" 2013
+
+- Improrting takes 416ms
+- Search takes 31ms
 
 ### v1
 

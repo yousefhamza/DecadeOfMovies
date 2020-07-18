@@ -9,7 +9,6 @@
 import Foundation
 import XCTest
 import CoreData
-@testable import DecadeOfMovies
 
 extension MoviesStore {
     func clear() {
