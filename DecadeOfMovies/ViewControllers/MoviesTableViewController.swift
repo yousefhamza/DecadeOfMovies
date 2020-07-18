@@ -122,8 +122,10 @@ class MoviesTableViewController: UITableViewController {
 extension MoviesTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let text = searchController.searchBar.text, text.isEmpty == false {
-            fetchResultsController.fetchRequest.predicate = NSPredicate(format: "title CONTAINS[c] '\(searchController.searchBar.text ?? "")'")
+            fetchResultsController.fetchRequest.sortDescriptors = MovieMO.searchSortDescriptor
+            fetchResultsController.fetchRequest.predicate = NSPredicate(format: "title CONTAINS[c] '\(text)'")
         } else {
+            fetchResultsController.fetchRequest.sortDescriptors = MovieMO.normalSortDescriptor
             fetchResultsController.fetchRequest.predicate = nil
         }
         fetchMovies()

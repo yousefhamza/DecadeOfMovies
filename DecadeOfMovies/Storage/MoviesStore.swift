@@ -41,10 +41,7 @@ class MoviesStore {
     var fetchResultsController: NSFetchedResultsController<MovieMO> {
         let fetchRequest = MovieMO.fetchRequest() as NSFetchRequest<MovieMO>
         fetchRequest.fetchBatchSize = 30
-        fetchRequest.sortDescriptors = [
-            NSSortDescriptor(key: "year", ascending: true),
-            NSSortDescriptor(key: "title", ascending: true)
-        ]
+        fetchRequest.sortDescriptors = MovieMO.normalSortDescriptor
         let fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                                 managedObjectContext: persistentContainer.viewContext,
                                                                 sectionNameKeyPath: "year",
