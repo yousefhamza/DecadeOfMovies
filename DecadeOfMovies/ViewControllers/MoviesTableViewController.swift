@@ -110,7 +110,8 @@ class MoviesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let movie = fetchResultsController.object(at: indexPath)
         let movieViewController = MovieViewController(movie: movie)
-        splitViewController?.showDetailViewController(movieViewController, sender: nil)
+        splitViewController?.showDetailViewController(UINavigationController(rootViewController: movieViewController),
+                                                      sender: nil)
     }
 }
 

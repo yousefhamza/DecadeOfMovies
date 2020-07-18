@@ -47,6 +47,6 @@ extension MovieViewController: MovieViewDelegate {
     }
 
     func moviesViewDidSelectImages(_ moviesView: MovieView) {
-        // TODO
+        navigationController?.pushViewController(FlickerImagesCollectionViewController(), animated: true)
     }
 }
