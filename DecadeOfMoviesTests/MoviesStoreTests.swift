@@ -73,7 +73,7 @@ class MoviesStoreTests: XCTestCase {
         }
     }
 
-    func testSearchMovies() throws {
+    func testSearchMoviesPerformance() throws {
         // Given
         let moviesStore = MoviesStore.shared
         let fetchResultsController = moviesStore.fetchResultsController

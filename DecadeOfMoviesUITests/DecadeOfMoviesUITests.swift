@@ -32,4 +32,24 @@ class DecadeOfMoviesUITests: XCTestCase {
         XCTAssert(app.navigationBars["Movies"].exists)
         XCTAssert(app.tables.staticTexts["2009"].waitForExistence(timeout: 5))
     }
+
+    func testSearchingMovies() throws {
+        let app = XCUIApplication()
+        app.launch()
+        app.activate()
+
+        XCTAssert(app.navigationBars["Movies"].exists)
+
+        let searchBar = app.searchFields.firstMatch
+        searchBar.tap()
+        searchBar.typeText("Fee")
+        let firstSectionTitle = app.tables.staticTexts.element(boundBy: 0)
+        let firstRowTitle = app.tables.staticTexts.element(boundBy: 1)
+
+        XCTAssertEqual(firstSectionTitle.label, "2011")
+        XCTAssertEqual(firstRowTitle.label, "Happy Feet Two")
+
+        searchBar.typeText("e") // Text is now Feee
+        XCTAssertEqual(app.tables.staticTexts.count, 0) // Nothing matches Feee
+    }
 }

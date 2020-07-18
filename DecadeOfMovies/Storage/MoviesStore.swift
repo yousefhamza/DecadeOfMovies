@@ -38,6 +38,7 @@ class MoviesStore {
 
     var fetchResultsController: NSFetchedResultsController<MovieMO> {
         let fetchRequest = MovieMO.fetchRequest() as NSFetchRequest<MovieMO>
+        fetchRequest.fetchBatchSize = 30
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "year", ascending: true),
             NSSortDescriptor(key: "title", ascending: true)
@@ -75,6 +76,7 @@ class MoviesStore {
                 movieMO.year = Int64(movie.year)
                 movieMO.genres = movie.genres as [NSString]
                 movieMO.cast = movie.cast as [NSString]
+                movieMO.rating = Int64(movie.rating)
             }
             do {
                 try context.save()

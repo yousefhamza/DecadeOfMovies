@@ -17,4 +17,5 @@ class Movie: Codable {
     let year: Int
     let genres: [String]
     let cast: [String]
+    let rating: Int
 }

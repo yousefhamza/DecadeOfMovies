@@ -13,6 +13,10 @@ fileprivate let kMoviesTableViewCellIdentifier = "cell"
 class MoviesTableViewController: UITableViewController {
 
     var fetchResultsController: NSFetchedResultsController<MovieMO> = MoviesStore.shared.fetchResultsController
+    let searchController = UISearchController(searchResultsController: nil)
+    var isSearching: Bool {
+      return searchController.isActive && !(searchController.searchBar.text?.isEmpty ?? true)
+    }
 
     init() {
         super.init(style: .grouped)
@@ -27,6 +31,17 @@ class MoviesTableViewController: UITableViewController {
         title = "Movies"
          self.clearsSelectionOnViewWillAppear = false
         tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: kMoviesTableViewCellIdentifier)
+
+        searchController.searchBar.placeholder = "Search Candies"
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchResultsUpdater = self
+        if #available(iOS 11.0, *) {
+            navigationItem.searchController = searchController
+            navigationItem.hidesSearchBarWhenScrolling = false
+        } else {
+            tableView.tableHeaderView = searchController.searchBar
+        }
+        definesPresentationContext = true
 
         importMovies()
     }
@@ -76,7 +91,8 @@ class MoviesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchResultsController.sections?[section].numberOfObjects ?? 0
+        let rowsCount = fetchResultsController.sections?[section].numberOfObjects ?? 0
+        return isSearching ? min(rowsCount, 5) : rowsCount
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -88,5 +104,16 @@ class MoviesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return fetchResultsController.sections?[section].name
+    }
+}
+
+extension MoviesTableViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let text = searchController.searchBar.text, text.isEmpty == false {
+            fetchResultsController.fetchRequest.predicate = NSPredicate(format: "title CONTAINS[c] '\(searchController.searchBar.text ?? "")'")
+        } else {
+            fetchResultsController.fetchRequest.predicate = nil
+        }
+        fetchMovies()
     }
 }
