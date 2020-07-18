@@ -1,4 +1,9 @@
 # Swvl Mobile Challenge 
+## Installation
+1. Install depenencies with cocoapods
+```
+pod install
+```
 
 ## Milestones
 
@@ -69,4 +74,5 @@ The goal of this milestone is to polish the app by flattening the design, add mo
 
 - Will use Core Data to handle caching, searching and sorting the data
 - Non-view Source files are added to the test target to be able to test it without relying on the app, which will make tests faster and more predictable 
+- API Key is kept in code for simplicity, but in production it should be pulled from a server for security
 - KingFisher is used to cache images both in memory and on disk
