@@ -17,10 +17,10 @@ class Network {
     ///   - endPoint: End point to execute
     ///   - successCallback: Success callback with the decoded object from response
     ///   - errorCallback: Error callback with the what wrong happened in the request
-    func executeRequest<T: Codable>(at endPoint: EndPoint,
+    func executeRequest<T: Codable>(at urlRequest: URLRequestCreator,
                            successCallback: @escaping (T)->Void,
                            errorCallback: @escaping (NetworkError)->Void) {
-        URLSession.shared.dataTask(with: endPoint.urlRequest) { (data, response, error) in
+        URLSession.shared.dataTask(with: urlRequest.urlRequest) { (data, response, error) in
             if let _ = error {
                 DispatchQueue.main.async {
                     errorCallback(.clientError)

@@ -18,9 +18,9 @@ class FlickerImagesCollectionViewController: UICollectionViewController {
     init(movieTitle: String) {
         self.movieTitle = movieTitle
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        flowLayout.minimumInteritemSpacing = 5
-        flowLayout.minimumLineSpacing = 5
+        flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        flowLayout.minimumInteritemSpacing = 10
+        flowLayout.minimumLineSpacing = 10
         super.init(collectionViewLayout: flowLayout)
     }
 
@@ -72,7 +72,7 @@ class FlickerImagesCollectionViewController: UICollectionViewController {
     }
 
     func fetchImages() {
-        Network.shared.executeRequest(at: .images(movieTitle: movieTitle, page: currentPage),
+        Network.shared.executeRequest(at: EndPoint.images(movieTitle: movieTitle, page: currentPage),
                                       successCallback: { (res: FlickerResponse) in
                                         self.photos += res.photos
                                         self.collectionView.performBatchUpdates({
@@ -104,7 +104,6 @@ class FlickerImagesCollectionViewController: UICollectionViewController {
 
         let photo = photos[indexPath.item]
         cell.flickImageView.setImage(url: EndPoint.flickPhoto(photo: photo).url,
-                                     at: indexPath,
                                      size: (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.itemSize)
     
         return cell

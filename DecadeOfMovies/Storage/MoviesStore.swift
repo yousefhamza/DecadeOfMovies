@@ -15,7 +15,7 @@ fileprivate let kMovieStoreHasFetchedKey = "kMovieStoreHasFetchedKey"
 class MoviesStore {
     static private(set) var shared = MoviesStore()
 
-    private lazy var persistentContainer: NSPersistentContainer = {
+    lazy var persistentContainer: NSPersistentContainer = {
         guard let momURL = Bundle(for: MoviesStore.self).url(forResource: "DecadeOfMovies",
                                                              withExtension: "momd"),
               let mom = NSManagedObjectModel(contentsOf: momURL) else {
@@ -31,7 +31,7 @@ class MoviesStore {
         return container
     }()
 
-    private(set) var hasImportedData = UserDefaults.standard.bool(forKey: kMovieStoreHasFetchedKey) {
+    var hasImportedData = UserDefaults.standard.bool(forKey: kMovieStoreHasFetchedKey) {
         didSet {
             UserDefaults.standard.set(hasImportedData, forKey: kMovieStoreHasFetchedKey)
         }

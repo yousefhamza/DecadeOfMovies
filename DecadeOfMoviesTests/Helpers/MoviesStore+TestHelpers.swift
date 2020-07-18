@@ -15,7 +15,7 @@ extension MoviesStore {
         persistentContainer.viewContext.performAndWait { [weak self] () in
             let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: MovieMO.fetchRequest())
             try! persistentContainer.viewContext.execute(batchDeleteRequest)
-            self?.hasImported = false
+            self?.hasImportedData = false
         }
     }
 }

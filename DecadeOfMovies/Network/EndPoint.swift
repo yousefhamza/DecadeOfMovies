@@ -10,7 +10,12 @@ import Foundation
 
 private let kFlickAPIKey="547c103df52dfaf5522fd6b1e3b9ead9"
 
-enum EndPoint {
+protocol URLRequestCreator {
+    var url: URL { get }
+    var urlRequest: URLRequest { get }
+}
+
+enum EndPoint: URLRequestCreator {
     case images(movieTitle: String, page: Int)
     case flickPhoto(photo: FlickerPhoto)
 

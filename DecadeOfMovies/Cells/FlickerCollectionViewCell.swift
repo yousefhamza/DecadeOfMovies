@@ -9,11 +9,12 @@
 import UIKit
 
 class FlickerCollectionViewCell: UICollectionViewCell {
-    lazy var flickImageView: RemoveImageView = {
-        let imageView = RemoveImageView()
+    lazy var flickImageView: UIImageView = {
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 16
         return imageView
     }()
 
