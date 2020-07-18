@@ -11,10 +11,11 @@ import CoreData
 
 fileprivate let kMovieStoreHasFetchedKey = "kMovieStoreHasFetchedKey"
 
+/// This class manages the movies stored in Core Data including importing them from JSON file
 class MoviesStore {
     static private(set) var shared = MoviesStore()
 
-    lazy var persistentContainer: NSPersistentContainer = {
+    private lazy var persistentContainer: NSPersistentContainer = {
         guard let momURL = Bundle(for: MoviesStore.self).url(forResource: "DecadeOfMovies",
                                                              withExtension: "momd"),
               let mom = NSManagedObjectModel(contentsOf: momURL) else {
@@ -30,12 +31,13 @@ class MoviesStore {
         return container
     }()
 
-    var hasImported = UserDefaults.standard.bool(forKey: kMovieStoreHasFetchedKey) {
+    private(set) var hasImportedData = UserDefaults.standard.bool(forKey: kMovieStoreHasFetchedKey) {
         didSet {
-            UserDefaults.standard.set(hasImported, forKey: kMovieStoreHasFetchedKey)
+            UserDefaults.standard.set(hasImportedData, forKey: kMovieStoreHasFetchedKey)
         }
     }
 
+    /// Returns a fetch results controller to be used to retireve the data
     var fetchResultsController: NSFetchedResultsController<MovieMO> {
         let fetchRequest = MovieMO.fetchRequest() as NSFetchRequest<MovieMO>
         fetchRequest.fetchBatchSize = 30
@@ -50,8 +52,12 @@ class MoviesStore {
         return fetchResultsController
     }
 
+    /// Import movies data from the JSON file to Core Data.
+    /// If data is already imported to Core Data, then error callback will be called
+    /// with error 'alreadyImported'
+    /// - Parameter completionHandler: error callback in case of failure
     func importIfNeeded(completionHandler: ((MoviesStoreError?)->Void)?=nil) {
-        guard hasImported == false else {
+        guard hasImportedData == false else {
             completionHandler?(MoviesStoreError.alreadyImported)
             return
         }
@@ -80,7 +86,7 @@ class MoviesStore {
             }
             do {
                 try context.save()
-                self?.hasImported = true
+                self?.hasImportedData = true
                 DispatchQueue.main.async {
                     completionHandler?(nil)
                 }

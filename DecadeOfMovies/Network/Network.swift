@@ -11,6 +11,12 @@ import Foundation
 class Network {
     static var shared = Network()
 
+    /// Execute network request and process input and error, and in case of success
+    /// decode the response data
+    /// - Parameters:
+    ///   - endPoint: End point to execute
+    ///   - successCallback: Success callback with the decoded object from response
+    ///   - errorCallback: Error callback with the what wrong happened in the request
     func executeRequest<T: Codable>(at endPoint: EndPoint,
                            successCallback: @escaping (T)->Void,
                            errorCallback: @escaping (NetworkError)->Void) {

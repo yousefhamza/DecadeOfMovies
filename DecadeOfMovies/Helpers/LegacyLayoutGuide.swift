@@ -8,6 +8,8 @@
 
 import UIKit
 
+/// An abstraction on top of UIView and UILayout guide to be able to use the same layout
+/// code with `UIView`s or `safeAreaLayoutGuide` on >= iOS 11.
 protocol LegacyLayoutGuide {
     var leadingAnchor: NSLayoutXAxisAnchor { get }
     var trailingAnchor: NSLayoutXAxisAnchor { get }

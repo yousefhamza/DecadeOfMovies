@@ -25,8 +25,11 @@ class FlickerResponse: Codable {
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        var response = container.nestedContainer(keyedBy: CodingKeys.self, forKey: .photosDictionary)
-        try response.encode(photos, forKey: .photos)
+        var photosDictionary = container.nestedContainer(keyedBy: CodingKeys.self, forKey: .photosDictionary)
+        try photosDictionary.encode(photos, forKey: .photos)
+        try photosDictionary.encode(pageSize, forKey: .pageSize)
+        try photosDictionary.encode(page, forKey: .page)
+        try photosDictionary.encode(totalPages, forKey: .totalPages)
     }
 
     enum CodingKeys: String, CodingKey {

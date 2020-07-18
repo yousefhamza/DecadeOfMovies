@@ -56,12 +56,16 @@ class MoviesTableViewController: UITableViewController {
     }
 
     fileprivate func importMovies() {
-        MoviesStore.shared.importIfNeeded { (error) in
-            guard error == nil || error == MoviesStoreError.alreadyImported else {
-                self.showImportFailureAlert()
-                return
+        if MoviesStore.shared.hasImportedData  {
+            fetchMovies()
+        } else {
+            MoviesStore.shared.importIfNeeded { (error) in
+                guard error == nil || error == MoviesStoreError.alreadyImported else {
+                    self.showImportFailureAlert()
+                    return
+                }
+                self.fetchMovies()
             }
-            self.fetchMovies()
         }
     }
 

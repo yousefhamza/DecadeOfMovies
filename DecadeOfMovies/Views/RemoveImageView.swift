@@ -12,6 +12,13 @@ import Kingfisher
 class RemoveImageView: UIImageView {
     var indexPath: IndexPath?=nil
 
+    /// Set image by URL asyncrhonsly in image view, with keep a reference to indexpath of the cell
+    /// that the image view belongs to, to prevent data races to the same image view while user
+    /// is scrolling
+    /// - Parameters:
+    ///   - url: URL of the image to be loaded and added to the image view
+    ///   - indexPath: Indexpath of the cell that carries the image view
+    ///   - size: size of the cell for down sampling the image
     func setImage(url: URL, at indexPath: IndexPath, size: CGSize?) {
         self.indexPath = indexPath
         let processor = DownsamplingImageProcessor(size: size ?? .zero)
