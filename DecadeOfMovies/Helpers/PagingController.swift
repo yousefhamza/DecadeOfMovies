@@ -41,6 +41,7 @@ class PagingController {
         isLoading = false
     }
 
+    /// Notify the controller that loading has finished but no pages were loaded
     func finishedWithError() {
         isLoading = false
     }
