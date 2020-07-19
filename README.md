@@ -5,6 +5,14 @@
 pod install
 ```
 
+# Technical Considerations
+
+- Will use Core Data to handle caching, searching and sorting the data
+- UI Tests were tested on iPhone 11 Pro Max
+- Non-view Source files are added to the test target to be able to test it without relying on the app, which will make tests faster and more predictable 
+- API Key is kept in code for simplicity, but in production it should be pulled from a server for security
+- KingFisher is used to cache images both in memory and on disk
+
 ## Milestones
 
 ### Pre-v1
@@ -69,10 +77,3 @@ The goal of this milestone is to polish the app by flattening the design, add mo
 - Open images by tapping and switch between them with swipes and close by swiping them down
 
 [Add GIF to the flow]
-
-# Technical Considerations
-
-- Will use Core Data to handle caching, searching and sorting the data
-- Non-view Source files are added to the test target to be able to test it without relying on the app, which will make tests faster and more predictable 
-- API Key is kept in code for simplicity, but in production it should be pulled from a server for security
-- KingFisher is used to cache images both in memory and on disk
