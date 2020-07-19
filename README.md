@@ -52,14 +52,7 @@ The goal of this milestone is to add states to the different lists/collections i
 - Add empty/error state for genres and cast and images lists
 - Add loading state to image thumbnails
 
-[Add GIF for the flow]
-
-### Pre-v3
-
-The goal of this milestone is to optimize memory usage further and communicate progress to the user
-
-- Reading movies gradually using input streams using this [API](https://developer.apple.com/documentation/foundation/nsjsonserialization/1418059-jsonobjectwithstream)
-- Add progress for importing
+![V2 demo](https://im7.ezgif.com/tmp/ezgif-7-b7d805ff6f1c.gif)
 
 ### v3
 
