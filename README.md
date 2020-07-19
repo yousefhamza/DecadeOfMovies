@@ -42,14 +42,6 @@ The goal of this milestone is to implement all functionalities at a very basic l
 
 [Add GIF for the flow]
 
-### v1.1
-
-The goal of this milestone is to make search functionality which is the core of this app more polished
-
-- Move/Delete/Insert tableview cells on search term change
-
-[Add GIF for the flow]
-
 ### v2
 
 The goal of this milestone is to add states to the different lists/collections in the app

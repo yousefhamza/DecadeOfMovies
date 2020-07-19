@@ -48,10 +48,10 @@ class MoviesTableViewController: UITableViewController {
 
     fileprivate func fetchMovies() {
         do {
-            try self.fetchResultsController.performFetch()
-            self.tableView.reloadData()
+            try fetchResultsController.performFetch()
+            tableView.reloadData()
         } catch {
-            self.showLoadingFailureAlert()
+            showLoadingFailureAlert()
         }
     }
 
