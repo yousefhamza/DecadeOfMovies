@@ -10,7 +10,9 @@ import UIKit
 import CoreData
 
 fileprivate let kMoviesTableViewCellIdentifier = "cell"
-class MoviesTableViewController: UITableViewController {
+class MoviesTableViewController: UIViewController {
+    let tableView = StatefulTableView(frame: .zero, style: .grouped)
+    lazy var stateController = MoviesTableStateController()
 
     var fetchResultsController: NSFetchedResultsController<MovieMO> = MoviesStore.shared.fetchResultsController
     let searchController = UISearchController(searchResultsController: nil)
@@ -19,7 +21,7 @@ class MoviesTableViewController: UITableViewController {
     }
 
     init() {
-        super.init(style: .grouped)
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -29,7 +31,13 @@ class MoviesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Movies"
-         self.clearsSelectionOnViewWillAppear = false
+        view.addSubview(tableView)
+        tableView.layoutFullyInSuperView()
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.stateDelegate = self
+        tableView.stateDataSource = stateController
+        tableView.contentInset = .zero
         tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: kMoviesTableViewCellIdentifier)
 
         searchController.searchBar.placeholder = "Search Candies"
@@ -41,14 +49,21 @@ class MoviesTableViewController: UITableViewController {
         } else {
             tableView.tableHeaderView = searchController.searchBar
         }
+
         definesPresentationContext = true
 
-        importMovies()
+        if MoviesStore.shared.hasImportedData == false {
+            stateController.didLoad(count: 0) // To show prompt for importing
+            tableView.reloadData()
+        } else {
+            fetchMovies()
+        }
     }
 
     fileprivate func fetchMovies() {
         do {
             try fetchResultsController.performFetch()
+            stateController.didLoad(count: fetchResultsController.fetchedObjects?.count ?? 0)
             tableView.reloadData()
         } catch {
             showLoadingFailureAlert()
@@ -56,6 +71,8 @@ class MoviesTableViewController: UITableViewController {
     }
 
     fileprivate func importMovies() {
+        stateController.startLoading()
+        tableView.reloadData()
         if MoviesStore.shared.hasImportedData  {
             fetchMovies()
         } else {
@@ -70,48 +87,41 @@ class MoviesTableViewController: UITableViewController {
     }
 
     fileprivate func showImportFailureAlert() {
-        showFailureAlert(message: "Couldn't perform import", action: importMovies)
+        stateController.didReceive(error: StateError(description: "Couldn't perform import"))
+        tableView.reloadData()
     }
 
     fileprivate func showLoadingFailureAlert() {
-        showFailureAlert(message: "Couldn't fetch data", action: fetchMovies)
+        stateController.didReceive(error: StateError(description: "Couldn't fetch data"))
+        tableView.reloadData()
     }
+}
 
-    func showFailureAlert(message: String, action: @escaping ()->Void) {
-        let alertController = UIAlertController(title: "Error",
-                                                message: "Couldn't perform import",
-                                                preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Retry", style: .default, handler: {  [weak self] (_) in
-            self?.importMovies()
-        }))
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
-        present(alertController, animated: true, completion: nil)
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
+extension MoviesTableViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return fetchResultsController.sections?.count ?? 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let rowsCount = fetchResultsController.sections?[section].numberOfObjects ?? 0
         return isSearching ? min(rowsCount, 5) : rowsCount
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: kMoviesTableViewCellIdentifier, for: indexPath)
         let movie = fetchResultsController.object(at: indexPath)
         cell.textLabel?.text = movie.title
         cell.accessoryType = .disclosureIndicator
         return cell
     }
+}
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+extension MoviesTableViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return fetchResultsController.sections?[section].name
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let movie = fetchResultsController.object(at: indexPath)
         let movieViewController = MovieViewController(movie: movie)
         splitViewController?.showDetailViewController(UINavigationController(rootViewController: movieViewController),
@@ -122,12 +132,21 @@ class MoviesTableViewController: UITableViewController {
 extension MoviesTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let text = searchController.searchBar.text, text.isEmpty == false {
+            stateController.state = .search
             fetchResultsController.fetchRequest.sortDescriptors = MovieMO.searchSortDescriptor
             fetchResultsController.fetchRequest.predicate = NSPredicate(format: "title CONTAINS[c] '\(text)'")
+
         } else {
+            stateController.state = .normal
             fetchResultsController.fetchRequest.sortDescriptors = MovieMO.normalSortDescriptor
             fetchResultsController.fetchRequest.predicate = nil
         }
         fetchMovies()
+    }
+}
+
+extension MoviesTableViewController: StateElementDelegate {
+    func statefulElementDidTapReload() {
+        importMovies()
     }
 }

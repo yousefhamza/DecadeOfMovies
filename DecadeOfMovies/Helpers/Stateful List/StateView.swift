@@ -26,7 +26,7 @@ class StateView: UIView {
 
     var delegate: StateElementDelegate?
     let isCompact: Bool
-    init(image: UIImage, messageLabel: UILabel, reloadButton: UIButton, delegate: StateElementDelegate?, isCompact: Bool=false) {
+    init(image: UIImage?, messageLabel: UILabel, reloadButton: UIButton, delegate: StateElementDelegate?, isCompact: Bool=false) {
         self.isCompact = isCompact
         super.init(frame: .zero)
 

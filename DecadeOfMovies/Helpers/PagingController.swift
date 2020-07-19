@@ -40,4 +40,8 @@ class PagingController {
         self.totalNumberOfPages = totalNumberOfPages
         isLoading = false
     }
+
+    func finishedWithError() {
+        isLoading = false
+    }
 }

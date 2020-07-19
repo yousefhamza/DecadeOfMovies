@@ -40,6 +40,10 @@
 		24A43A4F24C2DA4300B26DEF /* movies.json in Resources */ = {isa = PBXBuildFile; fileRef = 24A43A4E24C2DA4300B26DEF /* movies.json */; };
 		24A43A5124C2DA5E00B26DEF /* MoviesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A43A5024C2DA5E00B26DEF /* MoviesTableViewController.swift */; };
 		24A43A5424C2DA9A00B26DEF /* MoviesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A43A5324C2DA9A00B26DEF /* MoviesStore.swift */; };
+		24C07C4624C4E569009B402E /* NSLayoutConstraint+FillSuperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C07C4524C4E569009B402E /* NSLayoutConstraint+FillSuperView.swift */; };
+		24C07C4924C4E766009B402E /* MoviesTableStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C07C4824C4E766009B402E /* MoviesTableStateController.swift */; };
+		24C07C4B24C4EEFE009B402E /* DecadeOfMoviesStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C07C4A24C4EEFE009B402E /* DecadeOfMoviesStateController.swift */; };
+		24C07C4D24C4EF69009B402E /* FlickerImagesStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C07C4C24C4EF69009B402E /* FlickerImagesStateController.swift */; };
 		24CE5B0224C2F1C000DFB59F /* MoviesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A43A5324C2DA9A00B26DEF /* MoviesStore.swift */; };
 		24CE5B0324C2F1C500DFB59F /* DecadeOfMovies.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2419EE0024C0EEC900BF0174 /* DecadeOfMovies.xcdatamodeld */; };
 		24CE5B0424C2F1DF00DFB59F /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24984C3924C2DEA40046B7A5 /* Movie.swift */; };
@@ -104,6 +108,10 @@
 		24A43A4E24C2DA4300B26DEF /* movies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = movies.json; sourceTree = "<group>"; };
 		24A43A5024C2DA5E00B26DEF /* MoviesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesTableViewController.swift; sourceTree = "<group>"; };
 		24A43A5324C2DA9A00B26DEF /* MoviesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesStore.swift; sourceTree = "<group>"; };
+		24C07C4524C4E569009B402E /* NSLayoutConstraint+FillSuperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+FillSuperView.swift"; sourceTree = "<group>"; };
+		24C07C4824C4E766009B402E /* MoviesTableStateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesTableStateController.swift; sourceTree = "<group>"; };
+		24C07C4A24C4EEFE009B402E /* DecadeOfMoviesStateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecadeOfMoviesStateController.swift; sourceTree = "<group>"; };
+		24C07C4C24C4EF69009B402E /* FlickerImagesStateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerImagesStateController.swift; sourceTree = "<group>"; };
 		24CE5B0624C2FA6600DFB59F /* MoviesStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesStoreError.swift; sourceTree = "<group>"; };
 		24E9EF3F24C4D08600A06B60 /* PagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingController.swift; sourceTree = "<group>"; };
 		24E9EF4224C4D2A300A06B60 /* PagingControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingControllerTests.swift; sourceTree = "<group>"; };
@@ -215,6 +223,7 @@
 				2419EE2B24C0F1F100BF0174 /* UIWindow+Setup.swift */,
 				2475E01E24C328CA007137DC /* LegacyLayoutGuide.swift */,
 				24E9EF3F24C4D08600A06B60 /* PagingController.swift */,
+				24C07C4524C4E569009B402E /* NSLayoutConstraint+FillSuperView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -222,6 +231,7 @@
 		2419EE2D24C0F70300BF0174 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				24C07C4724C4E748009B402E /* State controllers */,
 				2419EE2E24C0F72B00BF0174 /* MasterDetailViewController.swift */,
 				24A43A5024C2DA5E00B26DEF /* MoviesTableViewController.swift */,
 				2419EDFB24C0EEC900BF0174 /* EmptyViewController.swift */,
@@ -293,6 +303,16 @@
 				2475E03224C362DC007137DC /* MovieMO+SortDescriptor.swift */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		24C07C4724C4E748009B402E /* State controllers */ = {
+			isa = PBXGroup;
+			children = (
+				24C07C4824C4E766009B402E /* MoviesTableStateController.swift */,
+				24C07C4A24C4EEFE009B402E /* DecadeOfMoviesStateController.swift */,
+				24C07C4C24C4EF69009B402E /* FlickerImagesStateController.swift */,
+			);
+			path = "State controllers";
 			sourceTree = "<group>";
 		};
 		24E9EF4724C4E10400A06B60 /* Stateful List */ = {
@@ -497,6 +517,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24C07C4D24C4EF69009B402E /* FlickerImagesStateController.swift in Sources */,
 				24A43A5124C2DA5E00B26DEF /* MoviesTableViewController.swift in Sources */,
 				2419EDFC24C0EEC900BF0174 /* EmptyViewController.swift in Sources */,
 				24E9EF4924C4E11F00A06B60 /* StateView.swift in Sources */,
@@ -514,15 +535,18 @@
 				2475E02624C33FBE007137DC /* Network.swift in Sources */,
 				2475E02C24C34C38007137DC /* FlickerResponse.swift in Sources */,
 				2475E01C24C32550007137DC /* MovieView.swift in Sources */,
+				24C07C4624C4E569009B402E /* NSLayoutConstraint+FillSuperView.swift in Sources */,
 				2475E02124C32D0B007137DC /* TextsTableViewController.swift in Sources */,
 				24CE5B0724C2FA6600DFB59F /* MoviesStoreError.swift in Sources */,
 				2475E03124C3544E007137DC /* UIImageView+KingfisherRecycle.swift in Sources */,
 				2419EDF824C0EEC900BF0174 /* AppDelegate.swift in Sources */,
+				24C07C4924C4E766009B402E /* MoviesTableStateController.swift in Sources */,
 				24E9EF4C24C4E2C800A06B60 /* StateController.swift in Sources */,
 				2419EDFA24C0EEC900BF0174 /* SceneDelegate.swift in Sources */,
 				2475E02824C33FF1007137DC /* EndPoint.swift in Sources */,
 				2475E01A24C32544007137DC /* MovieViewController.swift in Sources */,
 				2475E02A24C341FA007137DC /* NetworkError.swift in Sources */,
+				24C07C4B24C4EEFE009B402E /* DecadeOfMoviesStateController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

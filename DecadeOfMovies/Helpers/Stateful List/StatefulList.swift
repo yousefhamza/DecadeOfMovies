@@ -10,16 +10,15 @@ import UIKit
 
 open class StateConfiguration {
     public var reloadButton: UIButton!
-    public var loadingView: UIView!
-    public var loadingColor: UIColor!
-    public var emptyImage: UIImage!
-    public var errorImage: UIImage!
+    public var loadingView: UIActivityIndicatorView!
+    public var emptyImage: UIImage?
+    public var errorImage: UIImage?
     public var emptyLabel: UILabel!
     public var errorLabel: UILabel!
 }
 
 public struct StateError: Error {
-    let title: String?
+    let title: String?=nil
     let description: String
 }
 

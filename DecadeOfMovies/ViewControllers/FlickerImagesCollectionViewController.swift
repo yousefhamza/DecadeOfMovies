@@ -10,9 +10,11 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class FlickerImagesCollectionViewController: UICollectionViewController {
+class FlickerImagesCollectionViewController: UIViewController {
+    let collectionView: StatefulCollectionView
     let movieTitle: String
     let pagingController = PagingController()
+    lazy var stateController = FlickerImagesStateController()
     var photos: [FlickerPhoto] = []
 
     init(movieTitle: String) {
@@ -21,7 +23,8 @@ class FlickerImagesCollectionViewController: UICollectionViewController {
         flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         flowLayout.minimumInteritemSpacing = 10
         flowLayout.minimumLineSpacing = 10
-        super.init(collectionViewLayout: flowLayout)
+        self.collectionView = StatefulCollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -31,15 +34,21 @@ class FlickerImagesCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Flicker Images"
+        view.addSubview(collectionView)
+        collectionView.layoutFullyInSuperView()
         collectionView.allowsSelection = false
         if #available(iOS 13.0, *) {
             collectionView.backgroundColor = .systemBackground
         } else {
             collectionView.backgroundColor = .white
         }
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.stateDataSource = stateController
+        collectionView.stateDelegate = self
 
         // Register cell classes
-        self.collectionView!.register(FlickerCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView.register(FlickerCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         fetchImages()
     }
@@ -75,11 +84,17 @@ class FlickerImagesCollectionViewController: UICollectionViewController {
         guard pagingController.shouldLoadNextPage else {
             return
         }
+        if pagingController.nextPageIndex == 1 {
+            stateController.startLoading()
+            collectionView.reloadData()
+        }
         pagingController.startLoadingNextPage()
         Network.shared.executeRequest(at: EndPoint.images(movieTitle: movieTitle, page: pagingController.nextPageIndex),
                                       successCallback: { (res: FlickerResponse) in
                                         self.pagingController.loadedPage(loadedPageIndex: res.page, totalNumberOfPages: res.totalPages)
                                         self.photos += res.photos
+                                        self.stateController.didLoad(count: self.photos.count)
+                                        self.collectionView.reloadState()
                                         self.collectionView.performBatchUpdates({
                                             self.collectionView
                                                 .insertItems(at: (0..<res.pageSize)
@@ -88,40 +103,47 @@ class FlickerImagesCollectionViewController: UICollectionViewController {
                                         }, completion: nil)
         },
                                       errorCallback: { (error) in
-                                        print("error")
-                                        // TODO: Handle error
+                                        self.pagingController.finishedWithError()
+                                        self.stateController.didReceive(error: StateError(description: error.description))
+                                        self.collectionView.reloadData()
         })
     }
+}
 
-    // MARK: UICollectionViewDataSource
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+extension FlickerImagesCollectionViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! FlickerCollectionViewCell
 
         let photo = photos[indexPath.item]
         cell.flickImageView.setImage(url: EndPoint.flickPhoto(photo: photo).url,
                                      size: (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.itemSize)
-    
+
         return cell
     }
+}
 
-    // MARK: UICollectionViewDelegate
-
-    override func collectionView(_ collectionView: UICollectionView,
+extension FlickerImagesCollectionViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView,
                                  willDisplay cell: UICollectionViewCell,
                                  forItemAt indexPath: IndexPath) {
         guard indexPath.item == photos.count - 1 else {
             return
         }
+        fetchImages()
+    }
+}
+
+extension FlickerImagesCollectionViewController: StateElementDelegate {
+    func statefulElementDidTapReload() {
         fetchImages()
     }
 }

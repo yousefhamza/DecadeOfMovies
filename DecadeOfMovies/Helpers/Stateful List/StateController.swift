@@ -17,17 +17,19 @@ open class StateController: StateElementDataSource {
 
     public init() {
         configuration = StateConfiguration()
-        let reloadButton = UIButton()
+        let reloadButton = UIButton(type: .system)
         reloadButton.setTitle("Reload", for: .normal)
         configuration.reloadButton = reloadButton
         if #available(iOS 13.0, *) {
-            let indicatorView = UIActivityIndicatorView(style: .medium)
-            indicatorView.tintColor = .gray
+            let indicatorView = UIActivityIndicatorView(style: .whiteLarge)
+            indicatorView.startAnimating()
             configuration.loadingView = indicatorView
         } else {
-            configuration.loadingView = UIActivityIndicatorView(style: .gray)
+            let indicatorView = UIActivityIndicatorView(style: .whiteLarge)
+            indicatorView.startAnimating()
+            configuration.loadingView = indicatorView
         }
-        configuration.loadingColor = .white
+
         configuration.emptyLabel = defaultLabel()
         configuration.errorLabel = defaultLabel()
     }
@@ -54,7 +56,7 @@ open class StateController: StateElementDataSource {
         isEmpty = count == 0
     }
 
-    open func didReceive(error: JoeError) {
+    open func didReceive(error: StateError) {
         isLoading = false
         loadingError = error
         isEmpty = true
@@ -68,7 +70,7 @@ open class StateController: StateElementDataSource {
         return isLoading
     }
 
-    public func statefulViewError(_ view: StatefulElement) -> JoeError? {
+    public func statefulViewError(_ view: StatefulElement) -> StateError? {
         return loadingError
     }
 
