@@ -76,4 +76,25 @@ class DecadeOfMoviesUITests: XCTestCase {
         XCTAssert(app.navigationBars["Cast"].exists)
         XCTAssert(app.tables.staticTexts["Zooey Deschanel"].exists)
     }
+
+    func testMoviePhotosPaging() throws {
+        let app = XCUIApplication()
+        app.launch()
+        app.activate()
+
+        XCTAssert(app.navigationBars["Movies"].exists)
+
+        app.tables.staticTexts["(500) Days of Summer"].tap()
+
+        XCTAssert(app.navigationBars["Details"].exists)
+        app.buttons["Show images from Flicker"].tap()
+
+        XCTAssert(app.navigationBars["Flicker Images"].exists)
+        XCTAssert(app.collectionViews.cells.element(boundBy: 0).waitForExistence(timeout: 5))
+        XCTAssertLessThan(app.collectionViews.cells.count, 10)
+
+        app.collectionViews.element(boundBy: 0).swipeUp()
+        XCTAssert(app.collectionViews.cells.element(boundBy: 11).waitForExistence(timeout: 5))
+        XCTAssertGreaterThan(app.collectionViews.cells.count, 10)
+    }
 }

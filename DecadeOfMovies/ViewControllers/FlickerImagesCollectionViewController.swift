@@ -12,7 +12,7 @@ private let reuseIdentifier = "Cell"
 
 class FlickerImagesCollectionViewController: UICollectionViewController {
     let movieTitle: String
-    let currentPage: Int = 1
+    let pagingController = PagingController()
     var photos: [FlickerPhoto] = []
 
     init(movieTitle: String) {
@@ -72,8 +72,13 @@ class FlickerImagesCollectionViewController: UICollectionViewController {
     }
 
     func fetchImages() {
-        Network.shared.executeRequest(at: EndPoint.images(movieTitle: movieTitle, page: currentPage),
+        guard pagingController.shouldLoadNextPage else {
+            return
+        }
+        pagingController.startLoadingNextPage()
+        Network.shared.executeRequest(at: EndPoint.images(movieTitle: movieTitle, page: pagingController.nextPageIndex),
                                       successCallback: { (res: FlickerResponse) in
+                                        self.pagingController.loadedPage(loadedPageIndex: res.page, totalNumberOfPages: res.totalPages)
                                         self.photos += res.photos
                                         self.collectionView.performBatchUpdates({
                                             self.collectionView
@@ -107,5 +112,16 @@ class FlickerImagesCollectionViewController: UICollectionViewController {
                                      size: (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.itemSize)
     
         return cell
+    }
+
+    // MARK: UICollectionViewDelegate
+
+    override func collectionView(_ collectionView: UICollectionView,
+                                 willDisplay cell: UICollectionViewCell,
+                                 forItemAt indexPath: IndexPath) {
+        guard indexPath.item == photos.count - 1 else {
+            return
+        }
+        fetchImages()
     }
 }
