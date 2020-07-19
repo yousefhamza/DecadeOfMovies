@@ -40,7 +40,7 @@ The goal of this milestone is to implement all functionalities at a very basic l
     - Add 3 buttons to show the lists of genres and cast and photos
 - Add image loading/caching
 
-[Add GIF for the flow]
+![V1 demo](https://im7.ezgif.com/tmp/ezgif-7-fae6f7de0c53.gif)
 
 ### v2
 
