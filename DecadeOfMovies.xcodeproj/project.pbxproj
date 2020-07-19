@@ -49,6 +49,12 @@
 		24E9EF4024C4D08600A06B60 /* PagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E9EF3F24C4D08600A06B60 /* PagingController.swift */; };
 		24E9EF4124C4D08600A06B60 /* PagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E9EF3F24C4D08600A06B60 /* PagingController.swift */; };
 		24E9EF4324C4D2A300A06B60 /* PagingControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E9EF4224C4D2A300A06B60 /* PagingControllerTests.swift */; };
+		24E9EF4524C4E00F00A06B60 /* StatefulList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E9EF4424C4E00F00A06B60 /* StatefulList.swift */; };
+		24E9EF4624C4E00F00A06B60 /* StatefulList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E9EF4424C4E00F00A06B60 /* StatefulList.swift */; };
+		24E9EF4924C4E11F00A06B60 /* StateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E9EF4824C4E11F00A06B60 /* StateView.swift */; };
+		24E9EF4A24C4E11F00A06B60 /* StateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E9EF4824C4E11F00A06B60 /* StateView.swift */; };
+		24E9EF4C24C4E2C800A06B60 /* StateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E9EF4B24C4E2C800A06B60 /* StateController.swift */; };
+		24E9EF4D24C4E2C800A06B60 /* StateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E9EF4B24C4E2C800A06B60 /* StateController.swift */; };
 		24FEB3C824C3037F003A96A9 /* DecadeOfMoviesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FEB3C724C3037F003A96A9 /* DecadeOfMoviesUITests.swift */; };
 		BE6D8550575BA05D7403D3CA /* Pods_DecadeOfMovies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFFAA6426094B867ED2CAAD1 /* Pods_DecadeOfMovies.framework */; };
 /* End PBXBuildFile section */
@@ -101,6 +107,9 @@
 		24CE5B0624C2FA6600DFB59F /* MoviesStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesStoreError.swift; sourceTree = "<group>"; };
 		24E9EF3F24C4D08600A06B60 /* PagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingController.swift; sourceTree = "<group>"; };
 		24E9EF4224C4D2A300A06B60 /* PagingControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingControllerTests.swift; sourceTree = "<group>"; };
+		24E9EF4424C4E00F00A06B60 /* StatefulList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulList.swift; sourceTree = "<group>"; };
+		24E9EF4824C4E11F00A06B60 /* StateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateView.swift; sourceTree = "<group>"; };
+		24E9EF4B24C4E2C800A06B60 /* StateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateController.swift; sourceTree = "<group>"; };
 		24FEB3C524C3037F003A96A9 /* DecadeOfMoviesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DecadeOfMoviesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24FEB3C724C3037F003A96A9 /* DecadeOfMoviesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecadeOfMoviesUITests.swift; sourceTree = "<group>"; };
 		24FEB3C924C3037F003A96A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -202,6 +211,7 @@
 		2419EE2A24C0F1D000BF0174 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				24E9EF4724C4E10400A06B60 /* Stateful List */,
 				2419EE2B24C0F1F100BF0174 /* UIWindow+Setup.swift */,
 				2475E01E24C328CA007137DC /* LegacyLayoutGuide.swift */,
 				24E9EF3F24C4D08600A06B60 /* PagingController.swift */,
@@ -283,6 +293,16 @@
 				2475E03224C362DC007137DC /* MovieMO+SortDescriptor.swift */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		24E9EF4724C4E10400A06B60 /* Stateful List */ = {
+			isa = PBXGroup;
+			children = (
+				24E9EF4424C4E00F00A06B60 /* StatefulList.swift */,
+				24E9EF4824C4E11F00A06B60 /* StateView.swift */,
+				24E9EF4B24C4E2C800A06B60 /* StateController.swift */,
+			);
+			path = "Stateful List";
 			sourceTree = "<group>";
 		};
 		24FEB3C624C3037F003A96A9 /* DecadeOfMoviesUITests */ = {
@@ -479,6 +499,7 @@
 			files = (
 				24A43A5124C2DA5E00B26DEF /* MoviesTableViewController.swift in Sources */,
 				2419EDFC24C0EEC900BF0174 /* EmptyViewController.swift in Sources */,
+				24E9EF4924C4E11F00A06B60 /* StateView.swift in Sources */,
 				2475E02F24C35375007137DC /* FlickerCollectionViewCell.swift in Sources */,
 				24984C3A24C2DEA40046B7A5 /* Movie.swift in Sources */,
 				2419EE2C24C0F1F100BF0174 /* UIWindow+Setup.swift in Sources */,
@@ -486,6 +507,7 @@
 				24A43A5424C2DA9A00B26DEF /* MoviesStore.swift in Sources */,
 				24E9EF4024C4D08600A06B60 /* PagingController.swift in Sources */,
 				2475E03324C362DC007137DC /* MovieMO+SortDescriptor.swift in Sources */,
+				24E9EF4524C4E00F00A06B60 /* StatefulList.swift in Sources */,
 				2475E02324C336AA007137DC /* FlickerImagesCollectionViewController.swift in Sources */,
 				2475E01F24C328CA007137DC /* LegacyLayoutGuide.swift in Sources */,
 				2419EE0224C0EEC900BF0174 /* DecadeOfMovies.xcdatamodeld in Sources */,
@@ -496,6 +518,7 @@
 				24CE5B0724C2FA6600DFB59F /* MoviesStoreError.swift in Sources */,
 				2475E03124C3544E007137DC /* UIImageView+KingfisherRecycle.swift in Sources */,
 				2419EDF824C0EEC900BF0174 /* AppDelegate.swift in Sources */,
+				24E9EF4C24C4E2C800A06B60 /* StateController.swift in Sources */,
 				2419EDFA24C0EEC900BF0174 /* SceneDelegate.swift in Sources */,
 				2475E02824C33FF1007137DC /* EndPoint.swift in Sources */,
 				2475E01A24C32544007137DC /* MovieViewController.swift in Sources */,
@@ -507,7 +530,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24E9EF4A24C4E11F00A06B60 /* StateView.swift in Sources */,
 				2475E03924C38CF3007137DC /* Network.swift in Sources */,
+				24E9EF4624C4E00F00A06B60 /* StatefulList.swift in Sources */,
 				2475E03824C38CDE007137DC /* URLRequestCreatorMock.swift in Sources */,
 				24984C4024C2EA7A0046B7A5 /* MoviesStore+TestHelpers.swift in Sources */,
 				24E9EF4124C4D08600A06B60 /* PagingController.swift in Sources */,
@@ -518,6 +543,7 @@
 				24984C3D24C2E6760046B7A5 /* MoviesStoreTests.swift in Sources */,
 				2475E03424C36408007137DC /* MovieMO+SortDescriptor.swift in Sources */,
 				2475E03B24C38CF3007137DC /* NetworkError.swift in Sources */,
+				24E9EF4D24C4E2C800A06B60 /* StateController.swift in Sources */,
 				2475E03C24C38CF3007137DC /* FlickerResponse.swift in Sources */,
 				24E9EF4324C4D2A300A06B60 /* PagingControllerTests.swift in Sources */,
 				24CE5B0224C2F1C000DFB59F /* MoviesStore.swift in Sources */,
