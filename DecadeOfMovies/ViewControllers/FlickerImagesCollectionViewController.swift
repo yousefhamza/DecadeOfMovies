@@ -36,11 +36,16 @@ class FlickerImagesCollectionViewController: UIViewController {
         title = "Flicker Images"
         view.addSubview(collectionView)
         collectionView.layoutFullyInSuperView()
+        if #available(iOS 11.0, *) {
+            collectionView.contentInsetAdjustmentBehavior = .always
+        }
         collectionView.allowsSelection = false
         if #available(iOS 13.0, *) {
             collectionView.backgroundColor = .systemBackground
+            view.backgroundColor = .systemBackground
         } else {
             collectionView.backgroundColor = .white
+            view.backgroundColor = .white
         }
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -70,7 +75,14 @@ class FlickerImagesCollectionViewController: UIViewController {
         let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
         let width = view.bounds.width
         let sectionInset = flowLayout?.sectionInset ?? .zero
-        let realWidth = width - (flowLayout?.minimumInteritemSpacing ?? CGFloat(0)) - sectionInset.right - sectionInset.left
+        let safeAreaInset: UIEdgeInsets
+        if #available(iOS 11.0, *) {
+            safeAreaInset = navigationController?.view.safeAreaInsets ?? .zero
+        } else {
+            safeAreaInset = .zero
+        }
+        let realWidth = width - (flowLayout?.minimumInteritemSpacing ?? CGFloat(0)) -
+            sectionInset.right - sectionInset.left - safeAreaInset.right - safeAreaInset.left
         let itemSizeLength = realWidth / 2
 
         guard itemSizeLength != 0 || itemSizeLength == flowLayout?.itemSize.width ?? 0 else {
@@ -92,14 +104,17 @@ class FlickerImagesCollectionViewController: UIViewController {
         Network.shared.executeRequest(at: EndPoint.images(movieTitle: movieTitle, page: pagingController.nextPageIndex),
                                       successCallback: { (res: FlickerResponse) in
                                         self.pagingController.loadedPage(loadedPageIndex: res.page, totalNumberOfPages: res.totalPages)
+
+                                        let oldCount = self.photos.count
                                         self.photos += res.photos
+
                                         self.stateController.didLoad(count: self.photos.count)
                                         self.collectionView.reloadState()
                                         self.collectionView.performBatchUpdates({
+                                            let newIP = (oldCount..<self.photos.count)
+                                                .map({IndexPath(item: $0, section: 0)})
                                             self.collectionView
-                                                .insertItems(at: (0..<res.pageSize)
-                                                    .map({IndexPath(item: $0 + self.photos.count - res.pageSize,
-                                                        section: 0)}))
+                                                .insertItems(at: newIP)
                                         }, completion: nil)
         },
                                       errorCallback: { (error) in
