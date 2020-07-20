@@ -41,7 +41,7 @@ The goal of this milestone is to implement all functionalities at a very basic l
     - Add 3 buttons to show the lists of genres and cast and photos
 - Add image loading/caching
 
-![V1 demo](https://im7.ezgif.com/tmp/ezgif-7-fae6f7de0c53.gif)
+![V1 demo](demo_gifs/V1.gif)
 
 ### v2
 
@@ -52,7 +52,7 @@ The goal of this milestone is to add states to the different lists/collections i
 - Add empty/error state for genres and cast and images lists
 - Add loading state to image thumbnails
 
-![V2 demo](https://im7.ezgif.com/tmp/ezgif-7-b7d805ff6f1c.gif)
+![V2 demo](demo_gifs/V2.gif)
 
 ### v3
 
