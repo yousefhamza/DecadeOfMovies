@@ -62,4 +62,4 @@ The goal of this milestone is to polish the app by flattening the design, add mo
 - Make case a collapsable list in the movies details page
 - ~Open images by tapping and switch between them with swipes and close by swiping them down~
 
-![V3 demo](https://im7.ezgif.com/tmp/ezgif-7-22b2c6a745e2.gif)
+![V3 demo](demo_gifs/V3.gif)
