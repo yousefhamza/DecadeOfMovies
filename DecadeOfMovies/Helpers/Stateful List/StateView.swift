@@ -8,6 +8,9 @@
 
 import UIKit
 
+/// StateView is the view that's shown in the background of stateful element
+/// in case of empty, loading or error states.
+/// StateView views are configured from StateConfiguration
 class StateView: UIView {
     var reloadButton: UIButton!
 

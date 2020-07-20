@@ -8,12 +8,24 @@
 
 import UIKit
 
+/// Configuration for StateulElements
 open class StateConfiguration {
+    /// The reload button that shows in case of error or empty
     public var reloadButton: UIButton!
+
+    /// The loading views that it's showed in the loading state
     public var loadingView: UIActivityIndicatorView!
+
+    /// The empty image to show in case of empty list
     public var emptyImage: UIImage?
+
+    /// The error image to show in case of error
     public var errorImage: UIImage?
+
+    /// The label to show in case of empty list
     public var emptyLabel: UILabel!
+
+    /// The error label to show in case of error
     public var errorLabel: UILabel!
 }
 
@@ -22,6 +34,7 @@ public struct StateError: Error {
     let description: String
 }
 
+/// Stateful element is a view that that you want to support loading, empty and error states in
 public protocol StatefulElement: class {
     var backgroundView: UIView? { get set }
     var stateDataSource: StateElementDataSource? { get set }
@@ -29,15 +42,31 @@ public protocol StatefulElement: class {
     func reloadState()
 }
 
+/// DataSource provide the info needed in order for the StatefulElement to work
 public protocol StateElementDataSource {
+    /// Return if stateful element is empty
+    /// - Parameter view: stateful element view
     func statefulViewIsEmpty(_ view: StatefulElement) -> Bool
+
+    /// Return if stateful element is loading
+    /// - Parameter view: stateful element view
     func statefulViewIsLoading(_ view: StatefulElement) -> Bool
+
+    /// Return error if stateful element state is error
+    /// - Parameter view: stateful element view
     func statefulViewError(_ view: StatefulElement) -> StateError?
+
+    /// Returns is view is compact
+    /// - Parameter view: stateful element view
     func statefulViewIsCompact(_ view: StatefulElement) -> Bool
+
+    /// Return configuration to configure state view
+    /// - Parameter view: stateful element view
     func statefulViewConfiguration(_ view: StatefulElement) -> StateConfiguration
 }
 
 public protocol StateElementDelegate {
+    /// The action to be executed when the reload button is shown in the empty or error states
     func statefulElementDidTapReload()
 }
 
@@ -158,15 +187,6 @@ public class StatefulCollectionView: UICollectionView {
             self.refreshControl = refreshControl
         }
     }
-
-//    public override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-//        super.init(frame: frame, collectionViewLayout: layout)
-//
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
 
     public override func reloadData() {
         super.reloadData()

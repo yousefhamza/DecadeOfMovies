@@ -8,6 +8,8 @@
 
 import UIKit
 
+/// StateController act as template for StateElementDataSource.
+/// Feel free to inherit from it and customize it's configuration for your app.
 open class StateController: StateElementDataSource {
 
     private var isLoading = false
