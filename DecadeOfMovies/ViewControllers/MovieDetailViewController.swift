@@ -8,18 +8,22 @@
 
 import UIKit
 
-private let reuseIdentifier = "cell"
+private let castTableViewReuseIdentifier = "cell"
+private let genresCollectionViewreuseIdentifier = "cell"
 
 class MovieDetailViewController: UIViewController {
 
-    lazy var movieView = MovieView()
+    lazy var movieDetailView = MovieDetailView()
     let genresCollectionViewDataSource: GenresCollectionViewDataSource
+    let castTableViewDataSource: CastTableViewDataSource
     let movie: MovieMO
 
     init(movie: MovieMO) {
         self.movie = movie
         self.genresCollectionViewDataSource = GenresCollectionViewDataSource(genres: movie.genres as [String]? ?? [],
-                                                                             reuseIdentifier: reuseIdentifier)
+                                                                             reuseIdentifier: genresCollectionViewreuseIdentifier)
+        self.castTableViewDataSource = CastTableViewDataSource(cast: movie.cast as [String]? ?? [],
+                                                               reuseIdentifier: castTableViewReuseIdentifier)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -28,34 +32,28 @@ class MovieDetailViewController: UIViewController {
     }
 
     override func loadView() {
-        view = movieView
-        movieView.genresCollectionView.dataSource = genresCollectionViewDataSource
-
-        movieView.genresCollectionView.register(GenresCollectionViewCell.self,
-                                                 forCellWithReuseIdentifier: reuseIdentifier)
+        view = movieDetailView
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Details"
 
-        movieView.delegate = self
-        movieView.show(movie: movie)
+        movieDetailView.genresCollectionView.dataSource = genresCollectionViewDataSource
+        movieDetailView.castTableView.dataSource = castTableViewDataSource
+
+        movieDetailView.castTableView.register(UITableViewCell.classForCoder(),
+                                         forCellReuseIdentifier: castTableViewReuseIdentifier)
+        movieDetailView.genresCollectionView.register(GenresCollectionViewCell.self,
+                                                 forCellWithReuseIdentifier: genresCollectionViewreuseIdentifier)
+
+        movieDetailView.delegate = self
+        movieDetailView.show(movie: movie)
     }
 }
 
 extension MovieDetailViewController: MovieViewDelegate {
-    func movieViewDidSelectGenres(_ moviesView: MovieView) {
-        navigationController?.pushViewController(TextsTableViewController(title: "Genres",
-                                                                          texts: movie.genres as [String]? ?? []), animated: true)
-    }
-
-    func movieViewDidSelectCast(_ moviesView: MovieView) {
-        navigationController?.pushViewController(TextsTableViewController(title: "Cast",
-                                                                          texts: movie.cast as [String]? ?? []), animated: true)
-    }
-
-    func moviesViewDidSelectImages(_ moviesView: MovieView) {
+    func moviesViewDidSelectImages(_ moviesView: MovieDetailView) {
         navigationController?.pushViewController(FlickerImagesCollectionViewController(movieTitle: movie.title ?? ""), animated: true)
     }
 }

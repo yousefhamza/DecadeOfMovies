@@ -1,5 +1,5 @@
 //
-//  MovieView.swift
+//  MovieDetailView.swift
 //  DecadeOfMovies
 //
 //  Created by Yousef Hamza on 7/18/20.
@@ -9,12 +9,10 @@
 import UIKit
 
 protocol MovieViewDelegate: AnyObject {
-    func movieViewDidSelectGenres(_ moviesView: MovieView)
-    func movieViewDidSelectCast(_ moviesView: MovieView)
-    func moviesViewDidSelectImages(_ moviesView: MovieView)
+    func moviesViewDidSelectImages(_ moviesView: MovieDetailView)
 }
 
-class MovieView: UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class MovieDetailView: UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     weak var delegate: MovieViewDelegate?
 
     private lazy var titleLabel: UILabel = {
@@ -60,23 +58,6 @@ class MovieView: UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowL
         return label
     }()
 
-    private lazy var buttonsStack: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.distribution = .equalCentering
-        stackView.spacing = 8
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-
-    private lazy var genresButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Show genres", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
     lazy var genresCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
@@ -90,16 +71,44 @@ class MovieView: UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowL
         return collectionView
     }()
 
-    private lazy var castButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Show cast", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    private lazy var castLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .title2)
+        label.text = "Cast"
+        if #available(iOS 13.0, *) {
+            label.textColor = .label
+        }
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    lazy var castTableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.backgroundView = nil
+        tableView.allowsSelection = false
+        tableView.separatorStyle = .none
+        tableView.bounces = false
+        tableView.contentInset = UIEdgeInsets(top: -30, left: 0, bottom: 0, right: 0)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.rowHeight = 35
+        return tableView
+    }()
+
+    private lazy var buttonsStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.distribution = .equalCentering
+        stackView.spacing = 8
+        stackView.setContentHuggingPriority(.required, for: .vertical)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
 
     private lazy var imagesButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Show images from Flicker", for: .normal)
+        button.setContentHuggingPriority(.required, for: .vertical)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -110,22 +119,22 @@ class MovieView: UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowL
         if #available(iOS 13.0, *) {
             backgroundColor = .systemBackground
             genresCollectionView.backgroundColor = .systemBackground
+            castTableView.backgroundColor = .systemBackground
         } else {
             backgroundColor = .white
             genresCollectionView.backgroundColor = .white
+            castTableView.backgroundColor = .white
         }
         addSubview(titleLabel)
         addSubview(yearLabel)
         addSubview(lineView)
         addSubview(genresLabel)
         addSubview(genresCollectionView)
-        buttonsStack.addArrangedSubview(genresButton)
-        buttonsStack.addArrangedSubview(castButton)
+        addSubview(castLabel)
+        addSubview(castTableView)
         buttonsStack.addArrangedSubview(imagesButton)
         addSubview(buttonsStack)
 
-        genresButton.addTarget(self, action: #selector(didTapGenres), for: .touchUpInside)
-        castButton.addTarget(self, action: #selector(didTapCast), for: .touchUpInside)
         imagesButton.addTarget(self, action: #selector(didTapImages), for: .touchUpInside)
 
         setNeedsUpdateConstraints()
@@ -144,7 +153,7 @@ class MovieView: UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowL
         }
 
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: viewLayoutGuide.leadingAnchor, constant: 8),
+            titleLabel.leadingAnchor.constraint(equalTo: viewLayoutGuide.leadingAnchor, constant: 16),
             titleLabel.topAnchor.constraint(equalTo: viewLayoutGuide.topAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(equalTo: viewLayoutGuide.trailingAnchor, constant: -8),
 
@@ -166,10 +175,19 @@ class MovieView: UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowL
             genresCollectionView.topAnchor.constraint(equalTo: genresLabel.bottomAnchor),
             genresCollectionView.heightAnchor.constraint(equalToConstant: 50),
 
+            castLabel.leadingAnchor.constraint(equalTo: genresLabel.leadingAnchor),
+            castLabel.trailingAnchor.constraint(equalTo: genresLabel.trailingAnchor),
+            castLabel.topAnchor.constraint(equalTo: genresCollectionView.bottomAnchor, constant: 4),
+
+            castTableView.leadingAnchor.constraint(equalTo: castLabel.leadingAnchor),
+            castTableView.trailingAnchor.constraint(equalTo: castLabel.trailingAnchor),
+            castTableView.topAnchor.constraint(equalTo: castLabel.bottomAnchor, constant: 4),
+//            castTableView.heightAnchor.constraint(equalToConstant: 100),
+
             buttonsStack.leadingAnchor.constraint(equalTo: genresCollectionView.leadingAnchor),
             buttonsStack.trailingAnchor.constraint(equalTo: genresCollectionView.trailingAnchor),
-            buttonsStack.topAnchor.constraint(equalTo: genresCollectionView.bottomAnchor, constant: 16),
-            buttonsStack.bottomAnchor.constraint(lessThanOrEqualTo: viewLayoutGuide.bottomAnchor, constant: -16)
+            buttonsStack.topAnchor.constraint(equalTo: castTableView.bottomAnchor, constant: 16),
+            buttonsStack.bottomAnchor.constraint(equalTo: viewLayoutGuide.bottomAnchor, constant: -4)
         ])
         super.updateConstraints()
     }
@@ -177,14 +195,6 @@ class MovieView: UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowL
     func show(movie: MovieMO) {
         titleLabel.text = movie.title
         yearLabel.text = "\(movie.year)"
-    }
-
-    @objc private func didTapGenres() {
-        delegate?.movieViewDidSelectGenres(self)
-    }
-
-    @objc private func didTapCast() {
-        delegate?.movieViewDidSelectCast(self)
     }
 
     @objc private func didTapImages() {
