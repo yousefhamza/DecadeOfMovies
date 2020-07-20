@@ -56,6 +56,7 @@ class MoviesTableViewController: UIViewController {
             stateController.didLoad(count: 0) // To show prompt for importing
             tableView.reloadData()
         } else {
+            stateController.state = .normal
             fetchMovies()
         }
     }
@@ -81,18 +82,19 @@ class MoviesTableViewController: UIViewController {
                     self.showImportFailureAlert()
                     return
                 }
+                self.stateController.state = .normal
                 self.fetchMovies()
             }
         }
     }
 
     fileprivate func showImportFailureAlert() {
-        stateController.didReceive(error: StateError(description: "Couldn't perform import"))
+        stateController.didReceive(error: StateError(description: "Couldn't perform import."))
         tableView.reloadData()
     }
 
     fileprivate func showLoadingFailureAlert() {
-        stateController.didReceive(error: StateError(description: "Couldn't fetch data"))
+        stateController.didReceive(error: StateError(description: "Couldn't fetch movies."))
         tableView.reloadData()
     }
 }
@@ -137,7 +139,7 @@ extension MoviesTableViewController: UISearchResultsUpdating {
             fetchResultsController.fetchRequest.predicate = NSPredicate(format: "title CONTAINS[c] '\(text)'")
 
         } else {
-            stateController.state = .normal
+            stateController.state = MoviesStore.shared.hasImportedData ? .normal : .import
             fetchResultsController.fetchRequest.sortDescriptors = MovieMO.normalSortDescriptor
             fetchResultsController.fetchRequest.predicate = nil
         }

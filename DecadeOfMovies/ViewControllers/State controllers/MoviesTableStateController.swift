@@ -9,12 +9,13 @@
 import UIKit
 
 enum MoviesTableStateControllerState {
+    case `import`
     case normal
     case search
 }
 
 class MoviesTableStateController: DecadeOfMoviesStateController {
-    var state: MoviesTableStateControllerState = .normal {
+    var state: MoviesTableStateControllerState = .import {
         didSet {
             updateForConfig()
         }
@@ -28,9 +29,12 @@ class MoviesTableStateController: DecadeOfMoviesStateController {
     func updateForConfig() {
         let config = configuration
         switch state {
-        case .normal:
+        case .import:
             config.reloadButton.setTitle("Import Movies", for: .normal)
             config.emptyLabel.text = "There's no movies yet, import movies to see movies of the last decade"
+        case .normal:
+            config.reloadButton.setTitle("Reload Movies", for: .normal)
+            config.emptyLabel.text = "There's no movies available yet"
         case .search:
             config.reloadButton.setTitle(nil, for: .normal)
             config.emptyLabel.text = "No movies are matching your search query"
