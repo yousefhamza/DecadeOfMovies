@@ -19,16 +19,13 @@ extension UIImageView {
     ///   - indexPath: Indexpath of the cell that carries the image view
     ///   - size: size of the cell for down sampling the image
     func setImage(url: URL, size: CGSize?) {
-        let processor = DownsamplingImageProcessor(size: size ?? .zero)
         kf.cancelDownloadTask()
         kf.indicatorType = .activity
         image = nil
         kf.setImage(
             with: url,
             options: [
-                .processor(processor),
-                .scaleFactor(UIScreen.main.scale),
-                .transition(.fade(0.3)),
+                .transition(.fade(0.1)),
                 .cacheOriginalImage
             ])
     }
