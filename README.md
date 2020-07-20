@@ -54,19 +54,12 @@ The goal of this milestone is to add states to the different lists/collections i
 
 [Add GIF for the flow]
 
-### Pre-v3
-
-The goal of this milestone is to optimize memory usage further and communicate progress to the user
-
-- Reading movies gradually using input streams using this [API](https://developer.apple.com/documentation/foundation/nsjsonserialization/1418059-jsonobjectwithstream)
-- Add progress for importing
-
 ### v3
 
 The goal of this milestone is to polish the app by flattening the design, add more initiative interactions and using the space available to show more data
 
 - Make genres an inline collection view
 - Make case a collapsable list in the movies details page
-- Open images by tapping and switch between them with swipes and close by swiping them down
+- ~Open images by tapping and switch between them with swipes and close by swiping them down~
 
 [Add GIF to the flow]
