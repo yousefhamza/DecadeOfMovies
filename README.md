@@ -52,7 +52,7 @@ The goal of this milestone is to add states to the different lists/collections i
 - Add empty/error state for genres and cast and images lists
 - Add loading state to image thumbnails
 
-[Add GIF for the flow]
+![V2 demo](https://im7.ezgif.com/tmp/ezgif-7-b7d805ff6f1c.gif)
 
 ### v3
 
