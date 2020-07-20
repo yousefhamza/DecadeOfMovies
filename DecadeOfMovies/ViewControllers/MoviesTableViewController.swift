@@ -125,7 +125,7 @@ extension MoviesTableViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let movie = fetchResultsController.object(at: indexPath)
-        let movieViewController = MovieViewController(movie: movie)
+        let movieViewController = MovieDetailViewController(movie: movie)
         splitViewController?.showDetailViewController(UINavigationController(rootViewController: movieViewController),
                                                       sender: nil)
     }

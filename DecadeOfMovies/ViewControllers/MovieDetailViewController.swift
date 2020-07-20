@@ -13,10 +13,13 @@ private let reuseIdentifier = "cell"
 class MovieDetailViewController: UIViewController {
 
     lazy var movieView = MovieView()
+    let genresCollectionViewDataSource: GenresCollectionViewDataSource
     let movie: MovieMO
 
     init(movie: MovieMO) {
         self.movie = movie
+        self.genresCollectionViewDataSource = GenresCollectionViewDataSource(genres: movie.genres as [String]? ?? [],
+                                                                             reuseIdentifier: reuseIdentifier)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -26,7 +29,7 @@ class MovieDetailViewController: UIViewController {
 
     override func loadView() {
         view = movieView
-        movieView.genresCollectionView.dataSource = self
+        movieView.genresCollectionView.dataSource = genresCollectionViewDataSource
 
         movieView.genresCollectionView.register(GenresCollectionViewCell.self,
                                                  forCellWithReuseIdentifier: reuseIdentifier)
@@ -54,21 +57,5 @@ extension MovieDetailViewController: MovieViewDelegate {
 
     func moviesViewDidSelectImages(_ moviesView: MovieView) {
         navigationController?.pushViewController(FlickerImagesCollectionViewController(movieTitle: movie.title ?? ""), animated: true)
-    }
-}
-
-extension MovieDetailViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        movie.genres?.count ?? 0
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! GenresCollectionViewCell
-
-        let genre = movie.genres?[indexPath.item] ?? ""
-        cell.genre = genre as String
-        cell.contentView.backgroundColor = .systemBlue
-
-        return cell
     }
 }
