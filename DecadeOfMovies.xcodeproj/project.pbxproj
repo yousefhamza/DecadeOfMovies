@@ -36,7 +36,6 @@
 		2475E03C24C38CF3007137DC /* FlickerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2475E02B24C34C38007137DC /* FlickerResponse.swift */; };
 		24984C3A24C2DEA40046B7A5 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24984C3924C2DEA40046B7A5 /* Movie.swift */; };
 		24984C3D24C2E6760046B7A5 /* MoviesStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24984C3C24C2E6760046B7A5 /* MoviesStoreTests.swift */; };
-		24984C4024C2EA7A0046B7A5 /* MoviesStore+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24984C3F24C2EA7A0046B7A5 /* MoviesStore+TestHelpers.swift */; };
 		24A43A4F24C2DA4300B26DEF /* movies.json in Resources */ = {isa = PBXBuildFile; fileRef = 24A43A4E24C2DA4300B26DEF /* movies.json */; };
 		24A43A5124C2DA5E00B26DEF /* MoviesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A43A5024C2DA5E00B26DEF /* MoviesTableViewController.swift */; };
 		24A43A5424C2DA9A00B26DEF /* MoviesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A43A5324C2DA9A00B26DEF /* MoviesStore.swift */; };
@@ -57,11 +56,8 @@
 		24E9EF4124C4D08600A06B60 /* PagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E9EF3F24C4D08600A06B60 /* PagingController.swift */; };
 		24E9EF4324C4D2A300A06B60 /* PagingControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E9EF4224C4D2A300A06B60 /* PagingControllerTests.swift */; };
 		24E9EF4524C4E00F00A06B60 /* StatefulList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E9EF4424C4E00F00A06B60 /* StatefulList.swift */; };
-		24E9EF4624C4E00F00A06B60 /* StatefulList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E9EF4424C4E00F00A06B60 /* StatefulList.swift */; };
 		24E9EF4924C4E11F00A06B60 /* StateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E9EF4824C4E11F00A06B60 /* StateView.swift */; };
-		24E9EF4A24C4E11F00A06B60 /* StateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E9EF4824C4E11F00A06B60 /* StateView.swift */; };
 		24E9EF4C24C4E2C800A06B60 /* StateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E9EF4B24C4E2C800A06B60 /* StateController.swift */; };
-		24E9EF4D24C4E2C800A06B60 /* StateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E9EF4B24C4E2C800A06B60 /* StateController.swift */; };
 		24FEB3C824C3037F003A96A9 /* DecadeOfMoviesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FEB3C724C3037F003A96A9 /* DecadeOfMoviesUITests.swift */; };
 		BE6D8550575BA05D7403D3CA /* Pods_DecadeOfMovies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFFAA6426094B867ED2CAAD1 /* Pods_DecadeOfMovies.framework */; };
 /* End PBXBuildFile section */
@@ -107,7 +103,6 @@
 		24984C3924C2DEA40046B7A5 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		24984C3B24C2E6760046B7A5 /* DecadeOfMoviesTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DecadeOfMoviesTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		24984C3C24C2E6760046B7A5 /* MoviesStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesStoreTests.swift; sourceTree = "<group>"; };
-		24984C3F24C2EA7A0046B7A5 /* MoviesStore+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviesStore+TestHelpers.swift"; sourceTree = "<group>"; };
 		24A43A4E24C2DA4300B26DEF /* movies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = movies.json; sourceTree = "<group>"; };
 		24A43A5024C2DA5E00B26DEF /* MoviesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesTableViewController.swift; sourceTree = "<group>"; };
 		24A43A5324C2DA9A00B26DEF /* MoviesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesStore.swift; sourceTree = "<group>"; };
@@ -289,7 +284,6 @@
 		24984C3E24C2EA540046B7A5 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				24984C3F24C2EA7A0046B7A5 /* MoviesStore+TestHelpers.swift */,
 				2475E03724C38CDE007137DC /* URLRequestCreatorMock.swift */,
 			);
 			path = Helpers;
@@ -574,11 +568,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24E9EF4A24C4E11F00A06B60 /* StateView.swift in Sources */,
 				2475E03924C38CF3007137DC /* Network.swift in Sources */,
-				24E9EF4624C4E00F00A06B60 /* StatefulList.swift in Sources */,
 				2475E03824C38CDE007137DC /* URLRequestCreatorMock.swift in Sources */,
-				24984C4024C2EA7A0046B7A5 /* MoviesStore+TestHelpers.swift in Sources */,
 				24E9EF4124C4D08600A06B60 /* PagingController.swift in Sources */,
 				24CE5B0824C2FAF200DFB59F /* MoviesStoreError.swift in Sources */,
 				2475E03A24C38CF3007137DC /* EndPoint.swift in Sources */,
@@ -587,7 +578,6 @@
 				24984C3D24C2E6760046B7A5 /* MoviesStoreTests.swift in Sources */,
 				2475E03424C36408007137DC /* MovieMO+SortDescriptor.swift in Sources */,
 				2475E03B24C38CF3007137DC /* NetworkError.swift in Sources */,
-				24E9EF4D24C4E2C800A06B60 /* StateController.swift in Sources */,
 				2475E03C24C38CF3007137DC /* FlickerResponse.swift in Sources */,
 				24E9EF4324C4D2A300A06B60 /* PagingControllerTests.swift in Sources */,
 				24CE5B0224C2F1C000DFB59F /* MoviesStore.swift in Sources */,

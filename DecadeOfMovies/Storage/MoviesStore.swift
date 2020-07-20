@@ -31,7 +31,7 @@ class MoviesStore {
         return container
     }()
 
-    var hasImportedData = UserDefaults.standard.bool(forKey: kMovieStoreHasFetchedKey) {
+    private(set) var hasImportedData = UserDefaults.standard.bool(forKey: kMovieStoreHasFetchedKey) {
         didSet {
             UserDefaults.standard.set(hasImportedData, forKey: kMovieStoreHasFetchedKey)
         }
@@ -92,6 +92,14 @@ class MoviesStore {
                     completionHandler?(MoviesStoreError.saveError(error: error))
                 }
             }
+        }
+    }
+
+    func clear() {
+        persistentContainer.viewContext.performAndWait { [weak self] () in
+            let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: MovieMO.fetchRequest())
+            let _ = try? persistentContainer.viewContext.execute(batchDeleteRequest)
+            self?.hasImportedData = false
         }
     }
 }

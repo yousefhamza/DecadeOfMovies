@@ -17,7 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
+        if ProcessInfo.processInfo.arguments.contains("clear") {
+            MoviesStore.shared.clear()
+        }
         if #available(iOS 13.0, *) {
             // Window will be loaded by the Scene Delegate.
         } else {

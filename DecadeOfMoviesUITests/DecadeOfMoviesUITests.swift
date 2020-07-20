@@ -26,17 +26,17 @@ class DecadeOfMoviesUITests: XCTestCase {
     func testImportingAtLaunch() throws {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
+        app.launchArguments = ["clear"]
         app.launch()
-        app.activate()
 
-        XCTAssert(app.navigationBars["Movies"].exists)
+        app.buttons["Import Movies"].tap()
         XCTAssert(app.tables.staticTexts["2009"].waitForExistence(timeout: 5))
     }
 
     func testSearchingMovies() throws {
         let app = XCUIApplication()
         app.launch()
-        app.activate()
+        importIfNeeded()
 
         XCTAssert(app.navigationBars["Movies"].exists)
 
@@ -50,13 +50,13 @@ class DecadeOfMoviesUITests: XCTestCase {
         XCTAssertEqual(firstRowTitle.label, "Happy Feet Two")
 
         searchBar.typeText("e") // Text is now Feee
-        XCTAssertEqual(app.tables.staticTexts.count, 0) // Nothing matches Feee
+        XCTAssert(app.staticTexts["No movies are matching your search query"].waitForExistence(timeout: 5))
     }
 
     func testShowingMovieDetails() throws {
         let app = XCUIApplication()
         app.launch()
-        app.activate()
+        importIfNeeded()
 
         XCTAssert(app.navigationBars["Movies"].exists)
 
@@ -66,21 +66,14 @@ class DecadeOfMoviesUITests: XCTestCase {
         XCTAssert(app.staticTexts["(500) Days of Summer"].waitForExistence(timeout: 5))
         XCTAssert(app.staticTexts["2009"].waitForExistence(timeout: 5))
 
-        app.buttons["Show genres"].tap()
-        XCTAssert(app.navigationBars["Genres"].exists)
-        XCTAssert(app.tables.staticTexts["Comedy"].exists)
-
-        app.navigationBars.buttons["Details"].tap()
-
-        app.buttons["Show cast"].tap()
-        XCTAssert(app.navigationBars["Cast"].exists)
+        XCTAssert(app.collectionViews.staticTexts["Comedy"].exists)
         XCTAssert(app.tables.staticTexts["Zooey Deschanel"].exists)
     }
 
     func testMoviePhotosPaging() throws {
         let app = XCUIApplication()
         app.launch()
-        app.activate()
+        importIfNeeded()
 
         XCTAssert(app.navigationBars["Movies"].exists)
 
@@ -96,5 +89,19 @@ class DecadeOfMoviesUITests: XCTestCase {
         app.collectionViews.element(boundBy: 0).swipeUp()
         XCTAssert(app.collectionViews.cells.element(boundBy: 11).waitForExistence(timeout: 5))
         XCTAssertGreaterThan(app.collectionViews.cells.count, 10)
+    }
+
+    func importIfNeeded() {
+        let app = XCUIApplication()
+        let importButton = app.buttons["Import Movies"]
+        if importButton.exists == false {
+            return
+        }
+        importButton.tap()
+        XCTAssert(waitForMoviesToAppear())
+    }
+
+    func waitForMoviesToAppear() -> Bool{
+        XCUIApplication().tables.staticTexts["2009"].waitForExistence(timeout: 5)
     }
 }

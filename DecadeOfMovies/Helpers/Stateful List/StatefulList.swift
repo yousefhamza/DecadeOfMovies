@@ -97,13 +97,11 @@ extension StatefulElement {
     }
 
     func showLoading() {
-        print("Show loading")
         let config = stateDataSource!.statefulViewConfiguration(self)
         backgroundView = config.loadingView
     }
 
     func showError(_ error: StateError, isCompact: Bool) {
-        print("Show error: \(error)")
         let config = stateDataSource!.statefulViewConfiguration(self)
         let errorLabel = config.errorLabel
         errorLabel?.text = "\(error.title ?? "Something wrong happened"): \(error.description)"
@@ -115,7 +113,6 @@ extension StatefulElement {
     }
 
     func showEmpty(isCompact: Bool) {
-        print("Show Empty")
         let config = stateDataSource!.statefulViewConfiguration(self)
         let emptyLabel = config.emptyLabel
         if emptyLabel?.text == nil {
@@ -129,7 +126,6 @@ extension StatefulElement {
     }
 
     func showContent() {
-        print("Show content")
         backgroundView = nil
     }
 }
