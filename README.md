@@ -5,7 +5,7 @@
 pod install
 ```
 
-# Technical Considerations
+## Technical Considerations
 
 - Will use Core Data to handle caching, searching and sorting the data
 - UI Tests were tested on iPhone 11 Pro Max
