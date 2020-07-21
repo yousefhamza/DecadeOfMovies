@@ -1,4 +1,4 @@
-# Swvl Mobile Challenge 
+# Decade Of Movies
 ## Installation
 1. Install depenencies with cocoapods
 ```
