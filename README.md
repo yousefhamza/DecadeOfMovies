@@ -59,7 +59,7 @@ The goal of this milestone is to add states to the different lists/collections i
 The goal of this milestone is to polish the app by flattening the design, add more initiative interactions and using the space available to show more data
 
 - Make genres an inline collection view
-- Make case a list in the movies details page
+- Make cast a list in the movies details page
 - ~Open images by tapping and switch between them with swipes and close by swiping them down~
 
 ![V3 demo](demo_gifs/V3.gif)
